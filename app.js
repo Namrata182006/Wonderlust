@@ -17,6 +17,8 @@ var flash = require('connect-flash');
 const passport = require("passport");
 const localStratergy = require("passport-local");
 const User = require("./models/users.js");
+const Listing = require("./models/listing.js");
+const listingSchema  = require("./schema.js");
 
 //requirre routers
 const listings = require("./routes/listings.js");
@@ -93,17 +95,19 @@ app.use("/demoUser",async(req,res) => {
 })
 
 
-//root page
-// app.get("/", (req,res) => {
-//     res.send("Hi, i am root page")
-// });
-
 app.use((req,res,next) => {
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
     res.locals.currUser = req.user; 
     next();
 })
+
+//root page
+app.get("/", async (req, res) => {
+    const allListings = await Listing.find({});
+    console.log(allListings);
+    res.render("listings/index.ejs", { allListings });
+});
 
 //use routers
 app.use("/listings", listings);
