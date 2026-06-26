@@ -10,6 +10,7 @@
             <p class="card-text"><%= listing.description %></p>
             <h6 class="card-location">Location: <%= listing.location %></h6>
             <h6 class="card-location">Country: <%= listing.country %></h6>
+            <button style="background-color: #fe424d !important;">BOOK NOW</button>
             
             <div class="show-card-btn">
                 <% if(currUser && currUser._id.equals(listing.owner._id)) { %>
